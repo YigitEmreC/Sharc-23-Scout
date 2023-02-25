@@ -4,4 +4,5 @@ Pillow==9.4.0
 plotly==5.13.0
 streamlit==1.19.0
 streamlit_drawable_canvas==0.9.0
+streamlit_extras==0.2.6
 streamlit_image_coordinates==0.1.3
