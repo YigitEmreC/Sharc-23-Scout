@@ -235,7 +235,7 @@ n1 = 2
 
 if st.button('Submit'):
         
-        row = [name, level, match, team, robot, teamTag, teamName, ','.join(spawnPoint), ','.join(cargoAuto), cable, chargeStation, mobility, docked, ','.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
+        row = [name, level, match, team, robot, teamTag, teamName, ''.join(spawnPoint), ','.join(cargoAuto), cable, chargeStation, mobility, docked, ','.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
                swerve, speed, slippy, drop, comment]
         scout.append_row(row)
 
