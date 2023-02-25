@@ -41,7 +41,7 @@ stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image = ('Sharc-23-Scout/pages/field.png')
+bg_image = ('./pages/field.png')
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
