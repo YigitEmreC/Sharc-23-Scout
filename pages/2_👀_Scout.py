@@ -20,7 +20,7 @@ scope = [
 'https://www.googleapis.com/auth/drive'
 ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name('./ascout23/Sharc-23-Scout/pages/scoutingapi23.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('Sharc-23-Scout/pages/scoutingapi23.json', scope)
 client = gspread.authorize(creds)
 
 scout = client.open('scouting').sheet1
