@@ -1,23 +1,33 @@
 import streamlit as st
-from streamlit_image_coordinates import streamlit_image_coordinates
-import time
+import pandas as pd
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# Define the scope of access to the Google Sheets API
+scope = [
+'https://www.googleapis.com/auth/spreadsheets',
+'https://www.googleapis.com/auth/drive'
+]
 
 
+# Load the credentials from the JSON file
+creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
-st.set_page_config(
+# Authorize your application to access the Google Sheets API
+client = gspread.authorize(creds)
 
-page_title = "Analitics",
-page_icon ="https://media.licdn.com/dms/image/C4E03AQH4UTTZc2oWaQ/profile-displayphoto-shrink_800_800/0/1570104233605?e=2147483647&v=beta&t=qSvofj0Q9GdBP2StB4aV0EEkqL-iUzZ30TE7G2Lm3DE",
-)
+# Define the Google Sheet URL
+sheet_url = 'https://docs.google.com/spreadsheets/d/1YANIA50_sZWRVGueXH3d2HYuqPAw9gVZJ9lIRb9P1jI/edit#gid=0'
 
-hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-          footer {visibility: hidden;}
-         header {visibility: hidden;}
-          </style>
-         """
+# Open the Google Sheet by its URL
+sheet = client.open_by_url(sheet_url).sheet1
 
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# Read the data from the Google Sheet into a Pandas DataFrame
+data = pd.DataFrame(sheet.get_all_records())
 
-st.title('Abi söz yapıcam')
+# Create the Streamlit app
+
+st.title('scouting')
+
+    # Display the data in a table
+st.write(data)
