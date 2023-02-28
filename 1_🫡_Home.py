@@ -21,6 +21,8 @@ hide_st_style = """
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
+st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
+
 #---------------------------------------------------
 
 
