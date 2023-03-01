@@ -28,39 +28,40 @@ scope = [
 'https://www.googleapis.com/auth/drive'
 ]
 
-# Load the credentials from the JSON file
+# Uses the json file to find the required information to open the service account. 
 creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
+# Uses the information that is defined as creds to open the client account of the service account.
 # Authorize your application to access the Google Sheets API
 client = gspread.authorize(creds)
 
-# Define the Google Sheet URL
+# Locate the spessific google sheet that you will write the data on.
 sheet_url = 'https://docs.google.com/spreadsheets/d/1YANIA50_sZWRVGueXH3d2HYuqPAw9gVZJ9lIRb9P1jI/edit#gid=0'
 
-# Open the Google Sheet by its URL
+# Opens the google sheet based on the url defined on the sheet_url; If there is more than one pages on the google sheet you have to choose which one you want to write on such as sheet1
 sheet = client.open_by_url(sheet_url).sheet1
 
-# Read the data from the Google Sheet into a Pandas DataFrame
+# Read the data from the google sheet and convert it into a panda data table
 data = pd.DataFrame(sheet.get_all_records())
 
-# Create a search bar for filtering the data
+# Simple seach bar for getting the wanted input from the user, this input will limit the data with only the rows that the inputed variable.
 search = st.sidebar.text_input('Search')
 if search:
     data = data[data.astype(str).apply(lambda x: x.str.contains(search, case=False)).any(axis=1)]
 
-# Create a dropdown menu for selecting a variable to sort the data by
+# A selectbox for selecting which variable you want to create a graph about.
 sort_variable = st.sidebar.selectbox('Sort By', data.columns)
 
-# Create a checkbox for selecting the sort order
-sort_order = st.sidebar.checkbox('Descending', value=True)
+# Checkbox for descending or ascending order
+sort_order = st.sidebar.checkbox('Low to High', caption='If you want high to low, leave it unchecked', value=True)
 
-# Sort the data based on the selected variable and sort order
+# Sort the new data based on the perimeters the user gave
 data = data.sort_values(by=sort_variable, ascending=not sort_order)
 
-# Display the sorted and filtered data in a table
+# Display the data in pandas framework.
 st.write(data)
 
-# Create a chart based on the selected data
+# Create a simple chart for showing the visualized data.
 selected_data = st.multiselect('Select Data', data[sort_variable])
 if selected_data:
     chart_data = data[data[sort_variable].isin(selected_data)]
