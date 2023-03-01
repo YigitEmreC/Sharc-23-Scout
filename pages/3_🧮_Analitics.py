@@ -4,12 +4,13 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import altair as alt
 
-
+# For determining the page attributes such as its title that will appear on the winfow and icon which will also appear in the window.
 st.set_page_config(
 page_title = "Analitics",
 page_icon ="https://media.licdn.com/dms/image/C4E03AQH4UTTZc2oWaQ/profile-displayphoto-shrink_800_800/0/1570104233605?e=2147483647&v=beta&t=qSvofj0Q9GdBP2StB4aV0EEkqL-iUzZ30TE7G2Lm3DE",
 )
 
+# To hide the default header, footer and dropdown menu that comes default with the streamlit libary.
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -20,6 +21,7 @@ hide_st_style = """
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
+# Logo on the sidebar
 st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
 
 
@@ -32,7 +34,7 @@ scope = [
 creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
 # Uses the information that is defined as creds to open the client account of the service account.
-# Authorize your application to access the Google Sheets API
+# Do not forget to authorize the service account on the google sheet to so that the service account can open the google sheet
 client = gspread.authorize(creds)
 
 # Locate the spessific google sheet that you will write the data on.
