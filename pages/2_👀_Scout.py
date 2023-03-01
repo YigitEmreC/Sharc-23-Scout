@@ -36,7 +36,6 @@ numberInput = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
 
 
 st.set_page_config(
-
 page_title = "Scout",
 page_icon ="https://media.licdn.com/dms/image/C4E03AQH4UTTZc2oWaQ/profile-displayphoto-shrink_800_800/0/1570104233605?e=2147483647&v=beta&t=qSvofj0Q9GdBP2StB4aV0EEkqL-iUzZ30TE7G2Lm3DE",
 )
