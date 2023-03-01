@@ -21,7 +21,17 @@ hide_st_style = """
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
-st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
+logo_url = "https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png"
+
+# Create a container for the logo image
+logo_container = st.beta_container()
+
+# Display the logo image in the container
+with logo_container:
+    st.image(logo_url, use_column_width=True)
+
+# Add some space between the logo and the content
+st.sidebar.markdown("---")
 
 #---------------------------------------------------
 
