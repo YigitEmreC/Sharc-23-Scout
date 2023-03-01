@@ -55,7 +55,7 @@ if search:
 sort_variable = st.sidebar.selectbox('Sort By', data.columns)
 
 # Checkbox for descending or ascending order
-sort_order = st.sidebar.checkbox('Low to High', caption='If you want high to low, leave it unchecked', value=True)
+sort_order = st.sidebar.checkbox('Low to High', value=True)
 
 # Sort the new data based on the perimeters the user gave
 data = data.sort_values(by=sort_variable, ascending=not sort_order)
