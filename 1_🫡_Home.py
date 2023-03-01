@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 # streamlit run 1_🫡_Home.py
 
 def add_logo():
-    st.markdown(
+    st.sidebar.markdown(
         """
         <style>
             [data-testid="stSidebarNav"] {
