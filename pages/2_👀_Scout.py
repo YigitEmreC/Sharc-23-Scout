@@ -282,6 +282,6 @@ with st.expander("Results"):
 
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
-    st.subheader(totalPointOverall)
+    st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
 
