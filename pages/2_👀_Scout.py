@@ -194,7 +194,7 @@ with st.expander("Finale"):
 
     robotsParked = st.number_input('Total Number of Robots that Docked or Engaged :', min_value=0, max_value=3, value=0, step=1)
 
-with st.expander("After match"):
+with st.expander("After-Match"):
 
     skillLevel = selectbox('How talented was the driver?', ('Extremely Bad', 'Bad', 'Enough', 'More than enough', 'Good', 'Extremely Good', 'Karadayı'))
 
@@ -237,7 +237,7 @@ if st.button('Submit'):
         st.success('The data is successfully sent to the sheet ', icon="✅")
         st.balloons()
 
-with st.expander("Total Results"):
+with st.expander("Results"):
             
     intAutoCargo = []  
 
@@ -281,5 +281,7 @@ with st.expander("Total Results"):
     st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
 
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
+            
+    st.subheader(totalPointOverall)
 
 
