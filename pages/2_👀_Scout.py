@@ -234,5 +234,22 @@ if st.button('Submit'):
                swerve, speed, slippy, drop, comment]
         scout.append_row(row)
 
-        st.success('The data is successfully sended to the sheet ', icon="✅")
+        st.success('The data is successfully sent to the sheet ', icon="✅")
         st.balloons()
+
+with st.expander("Total Results"):
+
+    def autoPointCalculator(cargoAuto):
+        autoTotalPoint = 0
+        for num in cargoAuto:
+            if 1 <= num <= 9:
+                autoTotalPoint += 6
+            elif 10 <= num <= 18:
+                autoTotalPointk += 4
+            elif 18 <= num <= 38:
+                autoTotalPoint += 2
+        return autoTotalPoint
+
+    st.title(autoTotalPoint)
+
+
