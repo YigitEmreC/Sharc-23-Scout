@@ -259,4 +259,27 @@ with st.expander("Total Results"):
 
     st.text(f"Total points made during the autonomous state: {autoTotalPointResult}")
 
+    manualAutoCargo = []  
+
+    for cargo in cargoManual:
+        manualAutoCargo.append(int(cargo))
+            
+    def autoPointCalculator(manualAutoCargo):
+        manualTotalPoint = 0
+        for num in manualAutoCargo:
+            if 1 <= num <= 9:
+                manualTotalPoint += 6
+            elif 10 <= num <= 18:
+                manualTotalPoint += 4
+            elif 18 <= num <= 38:
+                manualTotalPoint += 2
+            
+        return manualTotalPoint
+
+    manualTotalPointResult = manualPointCalculator(manualAutoCargo)
+
+    st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
+
+    totalPointOverall = autoTotalPointResult + manualTotalPointResult
+
 
