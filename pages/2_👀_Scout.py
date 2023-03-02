@@ -238,6 +238,9 @@ if st.button('Submit'):
         st.balloons()
 
 with st.expander("Total Results"):
+            
+intCargoAuto = [int(numeric_string) for numeric_string in cargoAuto]
+
 
     def autoPointCalculator(cargoAuto):
         autoTotalPoint = 0
