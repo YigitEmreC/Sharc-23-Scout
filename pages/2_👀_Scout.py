@@ -241,7 +241,7 @@ with st.expander("Total Results"):
             
     intAutoCargo = []  
 
-    for cargo in autoCargo:
+    for cargo in cargoAuto:
         intAutoCargo.append(int(cargo))
             
     def autoPointCalculator(intAutoCargo):
