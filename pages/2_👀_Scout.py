@@ -245,7 +245,7 @@ with st.expander("Total Results"):
             if 1 <= num <= 9:
                 autoTotalPoint += 6
             elif 10 <= num <= 18:
-                autoTotalPointk += 4
+                autoTotalPoint += 4
             elif 18 <= num <= 38:
                 autoTotalPoint += 2
         return autoTotalPoint
