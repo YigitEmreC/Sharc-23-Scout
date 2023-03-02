@@ -239,6 +239,11 @@ if st.button('Submit'):
 
 with st.expander("Total Results"):
             
+    intAutoCargo = []  
+
+    for cargo in autoCargo:
+        intAutoCargo.append(int(cargo))
+            
     def autoPointCalculator(intAutoCargo):
         autoTotalPoint = 0
         for num in intAutoCargo:
