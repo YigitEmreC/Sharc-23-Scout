@@ -114,7 +114,7 @@ with st.expander("Autonomous"):
     else:
         chargeStation = 'No'
 
-    mobility = selectbox('Was it mobile?', ['Extremly Mobile', 'Mobile Enough', 'Not Enough'])
+    mobility = selectbox('Was it mobile?', ['Extremely Mobile', 'Mobile Enough', 'Not Enough'])
     
     docked = st.radio(
     "Did it docked? (Hook means it didn't moved while other teammates docked)",
@@ -135,7 +135,7 @@ with st.expander("Manual"):
    
     with mcol2:
         
-        st.image('https://media.discordapp.net/attachments/738557702330122283/1078714733835866242/Screenshot_2.png', caption='Purple = and Yellow = Cone')
+        st.image('https://media.discordapp.net/attachments/738557702330122283/1078714733835866242/Screenshot_2.png', caption='Purple = Cube and Yellow = Cone')
 
     st.subheader('Manual Attributes')
 
@@ -190,19 +190,19 @@ with st.expander("Finale"):
 
     st.radio(
         "Parking State:",
-        ('Parked', 'Docked ','Engaged',"Didn't Attempted",'Failed 😥'))
+        ('Parked', 'Docked ','Engaged',"Didn't Attempt",'Failed 😥'))
 
     robotsParked = st.number_input('Total Number of Robots that Docked or Engaged :', min_value=0, max_value=3, value=0, step=1)
 
-with st.expander("Aftermatch"):
+with st.expander("After match"):
 
-    skillLevel = selectbox('How talented was the driver?', ('Extremly Bad', 'Bad', 'Enough', 'More than enough', 'Good', 'Extremly Good', 'Karadayı'))
+    skillLevel = selectbox('How talented was the driver?', ('Extremely Bad', 'Bad', 'Enough', 'More than enough', 'Good', 'Extremely Good', 'Karadayı'))
 
     linkScored = st.number_input('Scored Links :', min_value=0, max_value=15, value=0, step=1)
 
-    skillDefenseLevel = selectbox('How  was the defense?', ("Didn't played defense", 'Extremly Bad', 'Bad', 'Enough', 'More than enough', 'Good', 'Extremly Good', 'Kalede Ersin'))
+    skillDefenseLevel = selectbox('How  was the defense?', ("Didn't played defense", 'Extremely Bad', 'Bad', 'Enough', 'More than enough', 'Good', 'Extremely Good', 'Kalede Ersin'))
 
-    t = st.checkbox('Has swere')
+    t = st.checkbox('Has swerve')
     if t:
         swerve = "yes"
     else: 
@@ -210,7 +210,7 @@ with st.expander("Aftermatch"):
 
     speed = st.slider('How fast was the robot', 0, 10, 5)
 
-    s = st.checkbox('Nearly dropped or literaly dropped')
+    s = st.checkbox('Nearly dropped or literally dropped')
     if s:
         slippy = 'yes'
     else: 
@@ -239,7 +239,10 @@ if st.button('Submit'):
 
 with st.expander("Total Results"):
             
-intAutoCargo = [int(i) for i in cargoAuto]
+intAutoCargo = []
+
+for acargo in cargoAuto:
+    intAutoCargo.append(int(acargo))
 
     def autoPointCalculator(intAutoCargo):
         autoTotalPoint = 0
