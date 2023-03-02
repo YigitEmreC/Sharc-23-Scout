@@ -239,12 +239,11 @@ if st.button('Submit'):
 
 with st.expander("Total Results"):
             
-intCargoAuto = [int(numeric_string) for numeric_string in cargoAuto]
+intAutoCargo = [int(i) for i in autoCargo]
 
-
-    def autoPointCalculator(cargoAuto):
+    def autoPointCalculator(intAutoCargo):
         autoTotalPoint = 0
-        for num in cargoAuto:
+        for num in intAutoCargo:
             if 1 <= num <= 9:
                 autoTotalPoint += 6
             elif 10 <= num <= 18:
@@ -253,7 +252,7 @@ intCargoAuto = [int(numeric_string) for numeric_string in cargoAuto]
                 autoTotalPoint += 2
         return autoTotalPoint
 
-    autoTotalPointResult = autoPointCalculator(cargoAuto)
+    autoTotalPointResult = autoPointCalculator(intAutoCargo)
 
     st.title(autoTotalPointResult)
 
