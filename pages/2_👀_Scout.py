@@ -250,7 +250,7 @@ with st.expander("Total Results"):
                 autoTotalPoint += 2
         return autoTotalPoint
 
-    autoTotalPointResult = utoPointCalculator(cargoAuto)
+    autoTotalPointResult = autoPointCalculator(cargoAuto)
 
     st.title(autoTotalPointResult)
 
