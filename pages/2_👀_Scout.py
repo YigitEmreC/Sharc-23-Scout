@@ -257,6 +257,6 @@ with st.expander("Total Results"):
 
     autoTotalPointResult = autoPointCalculator(intAutoCargo)
 
-    st.title("Total points made during the autonomous state: {}".format(variable))
+    st.title("Total points made during the autonomous state:", autoTotalPointResult)
 
 
