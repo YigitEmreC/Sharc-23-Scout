@@ -252,7 +252,7 @@ with st.expander("Results"):
             elif 10 <= num <= 18:
                 autoTotalPoint += 4
             elif 18 <= num <= 38:
-                autoTotalPoint += 2
+                autoTotalPoint += 3
         return autoTotalPoint
 
     autoTotalPointResult = autoPointCalculator(intAutoCargo)
@@ -268,9 +268,9 @@ with st.expander("Results"):
         manualTotalPoint = 0
         for num in manualAutoCargo:
             if 1 <= num <= 9:
-                manualTotalPoint += 6
+                manualTotalPoint += 5
             elif 10 <= num <= 18:
-                manualTotalPoint += 4
+                manualTotalPoint += 3
             elif 18 <= num <= 38:
                 manualTotalPoint += 2
             
