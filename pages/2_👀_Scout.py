@@ -224,19 +224,6 @@ with st.expander("After-Match"):
 
     comment = st.text_area('Any comments on the robot or the driver performance')
 
-
-
-n1 = 2
-
-if st.button('Submit'):
-        
-        row = [name, level, match, team, robot, teamTag, teamName, ''.join(spawnPoint), ','.join(cargoAuto), cable, chargeStation, mobility, docked, ','.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
-               swerve, speed, slippy, drop, comment]
-        scout.append_row(row)
-
-        st.success('The data is successfully sent to the sheet ', icon="✅")
-        st.balloons()
-
 with st.expander("Results"):
             
     intAutoCargo = []  
@@ -283,5 +270,14 @@ with st.expander("Results"):
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
+
+if st.button('Submit'):
+        
+        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), ','.join(cargoAuto), cable, chargeStation, mobility, docked, ','.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
+               swerve, speed, slippy, drop, comment]
+        scout.append_row(row)
+
+        st.success('The data is successfully sent to the sheet ', icon="✅")
+        st.balloons()
 
 
