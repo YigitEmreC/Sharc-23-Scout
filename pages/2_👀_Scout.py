@@ -264,7 +264,7 @@ with st.expander("Total Results"):
     for cargo in cargoManual:
         manualAutoCargo.append(int(cargo))
             
-    def autoPointCalculator(manualAutoCargo):
+    def manualPointCalculator(manualAutoCargo):
         manualTotalPoint = 0
         for num in manualAutoCargo:
             if 1 <= num <= 9:
