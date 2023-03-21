@@ -69,7 +69,7 @@ st.write(data)
 
 
 if data.empty:
-# The app crashes when there is no data in the google sheets. Therefore as a safety precaution I added an if else condition.
+# The graph function crashes when there is no data in the google sheets. Therefore as a safety precaution I added an if else condition.
     st.write("There is no data to draw right now.")
 else: 
     # Create a simple chart for showing the visualized data.
