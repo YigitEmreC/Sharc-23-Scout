@@ -46,19 +46,23 @@ sheet = client.open_by_url(sheet_url).sheet1
 # Read the data from the google sheet and convert it into a panda data table
 data = pd.DataFrame(sheet.get_all_records())
 
-# Simple seach bar for getting the wanted input from the user, this input will limit the data with only the rows that the inputed variable.
-search = st.sidebar.text_input('Search')
-if search:
-    data = data[data.astype(str).apply(lambda x: x.str.contains(search, case=False)).any(axis=1)]
+if data.empty:
+# The app crashes when there is no data in the google sheets. Therefore as a safety precaution I added an if else condition.
+    st.write("There is no data entry right now.")
+else:
+    # Simple search bar for getting the wanted input from the user, this input will limit the data with only the rows that the inputed variable.
+    search = st.sidebar.text_input("Search")
+    if search:
+        data = data[data.astype(str).apply(lambda x: x.str.contains(search, case=False)).any(axis=1)]
 
-# A selectbox for selecting which variable you want to create a graph about.
-sort_variable = st.sidebar.selectbox('Sort By', data.columns)
+    # A selectbox for selecting which variable you want to create a graph about.
+    sort_variable = st.sidebar.selectbox("Sort By", data.columns)
 
-# Checkbox for descending or ascending order
-sort_order = st.sidebar.checkbox('Low to High', value=True)
+    # Checkbox for descending or ascending order
+    sort_order = st.sidebar.checkbox("Low to High", value=True)
 
-# Sort the new data based on the perimeters the user gave
-data = data.sort_values(by=sort_variable, ascending=not sort_order)
+    # Sort the new data based on the perimeters the user gave
+    data = data.sort_values(by=sort_variable, ascending=not sort_order)
 
 # Display the data in pandas framework.
 st.write(data)
