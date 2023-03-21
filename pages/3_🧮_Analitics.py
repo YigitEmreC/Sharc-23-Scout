@@ -5,7 +5,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 import altair as alt
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-st.set_option('browser.serverAddress', 'localhost')
 st.set_option('browser.gatherUsageStats', False)
 st.set_option('server.useReloading', False)
 st.set_option('server.enableCORS', False)
