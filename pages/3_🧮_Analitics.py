@@ -67,12 +67,19 @@ else:
 # Display the data in pandas framework.
 st.write(data)
 
-# Create a simple chart for showing the visualized data.
-selected_data = st.multiselect('Select Data', data[sort_variable])
-if selected_data:
+
+if data.empty:
+# The app crashes when there is no data in the google sheets. Therefore as a safety precaution I added an if else condition.
+    st.write("There is no data to draw right now.")
+else: 
+    # Create a simple chart for showing the visualized data.
+ selected_data = st.multiselect('Select Data', data[sort_variable])
+ if selected_data:
     chart_data = data[data[sort_variable].isin(selected_data)]
     chart = alt.Chart(chart_data).mark_bar().encode(
         alt.X(sort_variable),
         alt.Y('count()')
     ).interactive()
     st.altair_chart(chart, use_container_width=True)
+
+
