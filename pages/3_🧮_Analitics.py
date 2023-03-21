@@ -4,13 +4,6 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import altair as alt
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
-st.set_option('browser.showFullScreenButton', False)
-st.set_option('browser.showHelp', False)
-st.set_option('browser.showLogs', False)
-st.set_option('browser.showProfiler', False)
-st.set_option('browser.showStaleElementReference', False)
-
 # For determining the page attributes such as its title that will appear on the winfow and icon which will also appear in the window.
 st.set_page_config(
 page_title = "Analitics",
