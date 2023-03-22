@@ -52,8 +52,8 @@ for root, dirs, files in os.walk("/"):
             # Assign the file path to the variable
             bg_image = os.path.join(root, file)
 
-            return bg_image
-         break
+        return bg_image
+        break
     else:
         continue
     break
