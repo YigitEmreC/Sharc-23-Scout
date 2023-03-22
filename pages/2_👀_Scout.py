@@ -267,7 +267,7 @@ with st.expander("Results"):
     elif parkState =="Engaged":
         parkPoints += 10
 
-if docked == "Engaged":
+    if docked == "Engaged":
         aparkPoints += 12
     elif docked == "Docked":
         aparkPoints += 8
