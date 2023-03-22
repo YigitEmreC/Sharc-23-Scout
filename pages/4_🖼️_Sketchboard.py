@@ -40,10 +40,11 @@ stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image = ('./pages/field.png')
+bg_image_url = "https://media.discordapp.net/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
+bg_image = Image.open(urlopen(bg_image_url))
 canvas_result = st_canvas(
     fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
