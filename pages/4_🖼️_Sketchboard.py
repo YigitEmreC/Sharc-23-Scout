@@ -1,30 +1,64 @@
-import streamlit as st
+import pandas as pd
 from PIL import Image
+import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
-# Set up the page layout
-st.set_page_config(page_title="Draw on Image", page_icon=":pencil2:")
-st.title("Draw on Image")
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
 
-# Get the URL of the image from the user
-img_url = "https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
 
-# Download the image and display it
-image = Image.open(img_url)
-st.image(image, caption="Original Image", use_column_width=True)
- 
-    # Set up the drawing canvas
+
+st.set_page_config(
+
+page_title = "Sketch",
+page_icon ="https://media.licdn.com/dms/image/C4E03AQH4UTTZc2oWaQ/profile-displayphoto-shrink_800_800/0/1570104233605?e=2147483647&v=beta&t=qSvofj0Q9GdBP2StB4aV0EEkqL-iUzZ30TE7G2Lm3DE",
+)
+
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+          footer {visibility: hidden;}
+         header {visibility: hidden;}
+          </style>
+         """
+
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
+
+
+st.markdown(':blue[**Simple Sketch App for Charged UP Field**]')
+
+
+drawing_mode = st.sidebar.selectbox(
+    "Drawing tool:", ("point", "freedraw", "line", "rect", "circle", "transform")
+)
+
+stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+if drawing_mode == 'point':
+    point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
+stroke_color = st.sidebar.color_picker("Stroke color hex: ")
+bg_image = ('./pages/field.png')
+
+realtime_update = st.sidebar.checkbox("Update in realtime", True)
+
+    
+
 canvas_result = st_canvas(
-        fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
-        stroke_width=3,
-        stroke_color="black",
-        background_image=image,
-        height=300,
-        width=300,
-        drawing_mode="freedraw",
-        key="canvas",
-    )
+    fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
+    stroke_width=stroke_width,
+    stroke_color=stroke_color,
+    background_image=Image.open(bg_image),
+    update_streamlit=realtime_update,
+    height=400,
+    drawing_mode=drawing_mode,
+    point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
+    key="canvas",
+)
 
-    # Display the result image with the drawing
-if canvas_result.image_data is not None:
-        st.image(canvas_result.image_data, caption="Modified Image", use_column_width=True)
+
