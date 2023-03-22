@@ -263,7 +263,7 @@ with st.expander("Results"):
             
         return manualTotalPoint
 
-     def manualParkCalculator(manualPark):
+     def manualParkCalculator(parkState):
          parkPoints = 0
          if parkState == "Parked":
             parkPoints += 2            
