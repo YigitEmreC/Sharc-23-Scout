@@ -188,7 +188,7 @@ with st.expander("Finale"):
         if __name__ =='__main__':
             main()
 
-    park state = st.radio(
+    parkState = st.radio(
         "Parking State:",
         ('Parked', 'Docked ','Engaged',"Didn't Attempt",'Failed 😥'))
 
