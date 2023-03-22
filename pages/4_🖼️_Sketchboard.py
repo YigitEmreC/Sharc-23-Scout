@@ -10,15 +10,11 @@ st.title("Draw on Image")
 img_url = "https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
 
 # Download the image and display it
-if img_url:
-    try:
-        image = Image.open(img_url)
-        st.image(image, caption="Original Image", use_column_width=True)
-    except:
-        st.error("Error loading image. Please check the URL and try again.")
-
+image = Image.open(img_url)
+st.image(image, caption="Original Image", use_column_width=True)
+ 
     # Set up the drawing canvas
-    canvas_result = st_canvas(
+canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
         stroke_width=3,
         stroke_color="black",
@@ -30,5 +26,5 @@ if img_url:
     )
 
     # Display the result image with the drawing
-    if canvas_result.image_data is not None:
+if canvas_result.image_data is not None:
         st.image(canvas_result.image_data, caption="Modified Image", use_column_width=True)
