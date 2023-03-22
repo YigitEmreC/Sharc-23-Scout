@@ -262,19 +262,15 @@ with st.expander("Results"):
                 manualTotalPoint += 2
             
         return manualTotalPoint
-
-     def manualParkCalculator():
-         parkPoints = 0
-         if parkState == "Parked":
-             parkPoints += 2            
-         elif parkState == "Docked":
-             parkPoints += 6
-         elif parkState == "Engaged":
-             parkPoints += 10
-            
-         return parkPoints     
+     parkPoints = 0
+     if parkState == "Parked":
+        parkPoints += 2
+     elif parkState == "Docked":
+        parkPoints += 6
+     elif parkState =="Engaged":
+        parkPoints += 10
+ 
      
-         
      
     manualTotalPointResult = manualPointCalculator(manualAutoCargo)
 
