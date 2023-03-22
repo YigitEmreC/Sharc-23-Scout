@@ -24,7 +24,7 @@ hide_st_style = """
             footer {visibility: hidden;}
             header {visibility: hidden;}
             </style>
-         """
+            """
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
@@ -40,16 +40,17 @@ stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image_url = "https://media.discordapp.net/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
+bg_image_url = 'https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png' 
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
-bg_image = Image.open(urlopen(bg_image_url))
+    
+
 canvas_result = st_canvas(
     fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
     stroke_color=stroke_color,
-    background_image=Image.open(bg_image),
+    background_image=Image.open(bg_image_url),
     update_streamlit=realtime_update,
     height=400,
     drawing_mode=drawing_mode,
