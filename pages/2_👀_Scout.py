@@ -270,7 +270,6 @@ with st.expander("Results"):
     elif parkState =="Engaged":
         parkPoints += 10
  
-        return parkPoints
      
      
     manualTotalPointResult = manualPointCalculator(manualAutoCargo)
