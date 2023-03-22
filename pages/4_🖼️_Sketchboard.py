@@ -7,7 +7,7 @@ st.set_page_config(page_title="Draw on Image", page_icon=":pencil2:")
 st.title("Draw on Image")
 
 # Get the URL of the image from the user
-img_url = st.text_input("Enter the URL of the image you want to draw on:")
+img_url = "https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
 
 # Download the image and display it
 if img_url:
