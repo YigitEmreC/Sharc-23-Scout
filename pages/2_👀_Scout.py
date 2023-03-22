@@ -263,13 +263,24 @@ with st.expander("Results"):
             
         return manualTotalPoint
 
-     def manualParkCalculator(manualPark)
-
+     def manualParkCalculator(manualPark):
+         parkPoints = 0
+         if parkState == "Parked":
+            parkPoints += 2            
+         elif parkState == "Docked":
+            parkPoints += 6
+         elif parkState == "Engaged":
+            parkPoints += 10
+            
+       return parkPoints     
+     
+         
+     
     manualTotalPointResult = manualPointCalculator(manualAutoCargo)
 
     st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
 
-    totalPointOverall = autoTotalPointResult + manualTotalPointResult
+    totalPointOverall = autoTotalPointResult + manualTotalPointResult + parkPoints
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
