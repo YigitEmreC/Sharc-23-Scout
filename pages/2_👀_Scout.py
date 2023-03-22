@@ -188,7 +188,7 @@ with st.expander("Finale"):
         if __name__ =='__main__':
             main()
 
-    st.radio(
+    park state = st.radio(
         "Parking State:",
         ('Parked', 'Docked ','Engaged',"Didn't Attempt",'Failed 😥'))
 
@@ -263,6 +263,8 @@ with st.expander("Results"):
             
         return manualTotalPoint
 
+     def manualParkCalculator(manualPark)
+
     manualTotalPointResult = manualPointCalculator(manualAutoCargo)
 
     st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
@@ -273,7 +275,7 @@ with st.expander("Results"):
 
 if st.button('Submit'):
         
-        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
+        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
                swerve, speed, slippy, drop, comment]
         scout.append_row(row)
 
