@@ -117,7 +117,7 @@ with st.expander("Autonomous"):
     mobility = selectbox('Was it mobile?', ['Extremely Mobile', 'Mobile Enough', 'Not Enough'])
     
     docked = st.radio(
-    "Did it docked? (Hook means it didn't moved while other teammates docked)",
+    "Did it docked?",
         ('Parked', 'Docked ','Engaged',"Didn't Attempted",'Failed 😥'))
 
 with st.expander("Manual"):
