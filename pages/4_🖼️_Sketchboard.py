@@ -51,12 +51,8 @@ for root, dirs, files in os.walk("/"):
         if file == "field.jpg":
             # Assign the file path to the variable
             bg_image = os.path.join(root, file)
-
-        return bg_image
-        break
-    else:
-        continue
     break
+       
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
