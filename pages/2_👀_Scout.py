@@ -265,12 +265,12 @@ with st.expander("Results"):
 
      def manualParkCalculator(parkState):
          parkPoints = 0
-         if parkState == "Parked":
-            parkPoints += 2            
-         elif parkState == "Docked":
-            parkPoints += 6
-         elif parkState == "Engaged":
-            parkPoints += 10
+             if parkState == "Parked":
+                parkPoints += 2            
+             elif parkState == "Docked":
+                parkPoints += 6
+             elif parkState == "Engaged":
+                parkPoints += 10
             
          return parkPoints     
      
