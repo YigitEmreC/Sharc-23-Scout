@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # value = streamlit_image_coordinates("https://placekitten.com/200/300")
 #st.write(value)
-
+parkPoints = 0
 st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
 
 
@@ -262,7 +262,7 @@ with st.expander("Results"):
                 manualTotalPoint += 2
             
         return manualTotalPoint
-     parkPoints = 0
+    
      if parkState == "Parked":
         parkPoints += 2
      elif parkState == "Docked":
