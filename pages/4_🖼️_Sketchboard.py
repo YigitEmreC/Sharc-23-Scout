@@ -46,13 +46,17 @@ if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
 
+bg_image = None
+
 for root, dirs, files in os.walk("/"):
     for file in files:
         if file == "field.jpg":
             # Assign the file path to the variable
             bg_image = os.path.join(root, file)
-    break
-       
+            break
+
+    if bg_image:
+        break
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
