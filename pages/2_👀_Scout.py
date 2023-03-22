@@ -271,11 +271,9 @@ with st.expander("Results"):
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
-autoTotalPointResultSTR = str(autoTotalPointResult)
-
 if st.button('Submit'):
         
-        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResultSTR, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
+        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
                swerve, speed, slippy, drop, comment]
         scout.append_row(row)
 
