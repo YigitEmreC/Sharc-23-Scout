@@ -263,11 +263,11 @@ with st.expander("Results"):
             
         return manualTotalPoint
     
-     if parkState == "Parked":
+    if parkState == "Parked":
         parkPoints += 2
-     elif parkState == "Docked":
+    elif parkState == "Docked":
         parkPoints += 6
-     elif parkState =="Engaged":
+    elif parkState =="Engaged":
         parkPoints += 10
  
         return parkPoints
