@@ -48,15 +48,18 @@ stroke_color = st.sidebar.color_picker("Stroke color hex: ")
 
 bg_image = None
 
-for root, dirs, files in os.walk("/"):
-    for file in files:
-        if file == "field.jpg":
-            # Assign the file path to the variable
-            bg_image = os.path.join(root, file)
-            break
+try:
+    for root, dirs, files in os.walk("/"):
+        for file in files:
+            if file == "field.jpg":
+                # Assign the file path to the variable
+                bg_image = os.path.join(root, file)
+                break
 
-    if bg_image:
-        break
+        if bg_image:
+            break
+except FileNotFoundError:
+    pass
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
@@ -66,12 +69,10 @@ canvas_result = st_canvas(
     fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
     stroke_color=stroke_color,
-    background_image=Image.open(bg_image),
+    background_image=Image.open(bg_image) if bg_image else None,
     update_streamlit=realtime_update,
     height=400,
     drawing_mode=drawing_mode,
     point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
     key="canvas",
 )
-
-
