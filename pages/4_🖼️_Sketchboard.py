@@ -2,6 +2,8 @@ import pandas as pd
 from PIL import Image
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
+import os
+
 
 hide_st_style = """
             <style>
@@ -43,24 +45,24 @@ stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image = Image.open('./pages/field.png')
+
+bg_image_path = os.path.join(os.getcwd(), "pages", "field.png")
+
+bg_image = Image.open(bg_image_path)
 bg_image = bg_image.resize((400, 400))
 
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
     
-
 canvas_result = st_canvas(
     fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
     stroke_color=stroke_color,
-    background_image=Image.open(bg_image),
+    background_image=bg_image,
     update_streamlit=realtime_update,
     height=400,
     drawing_mode=drawing_mode,
     point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
     key="canvas",
 )
-
-
