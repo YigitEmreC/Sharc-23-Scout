@@ -10,6 +10,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # value = streamlit_image_coordinates("https://placekitten.com/200/300")
 #st.write(value)
 parkPoints = 0
+aparkPoints = 0
 st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
 
 
@@ -242,10 +243,6 @@ with st.expander("Results"):
                 autoTotalPoint += 3
         return autoTotalPoint
 
-    autoTotalPointResult = autoPointCalculator(intAutoCargo)
-
-    st.text(f"Total points made during the autonomous state: {autoTotalPointResult}")
-
     manualAutoCargo = []  
 
     for cargo in cargoManual:
@@ -269,14 +266,22 @@ with st.expander("Results"):
         parkPoints += 6
     elif parkState =="Engaged":
         parkPoints += 10
+
+if docked == "Engaged":
+        aparkPoints += 12
+    elif docked == "Docked":
+        aparkPoints += 8
+    
  
-     
-     
-    manualTotalPointResult = manualPointCalculator(manualAutoCargo)
+    autoTotalPointResult = aparkPoints + autoPointCalculator(intAutoCargo)
 
-    st.text(f"Total points made during the teleop state: {manualTotalPointResult + parkPoints}")
+    st.text(f"Total points made during the autonomous state: {autoTotalPointResult}")
+     
+    manualTotalPointResult = parkPoints + manualPointCalculator(manualAutoCargo)
 
-    totalPointOverall = autoTotalPointResult + manualTotalPointResult + parkPoints
+    st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
+
+    totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
