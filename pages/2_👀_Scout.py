@@ -274,7 +274,7 @@ with st.expander("Results"):
      
     manualTotalPointResult = manualPointCalculator(manualAutoCargo)
 
-    st.text(f"Total points made during the teleop state: {manualTotalPointResult + parkPoint}")
+    st.text(f"Total points made during the teleop state: {manualTotalPointResult + parkPoints}")
 
     totalPointOverall = autoTotalPointResult + manualTotalPointResult + parkPoints
             
