@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import io
+import requests
 
 # Define function to convert image to RGBA format
 def image_to_rgba(image):
