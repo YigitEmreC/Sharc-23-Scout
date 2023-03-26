@@ -47,10 +47,8 @@ bg_image = ('./pages/field.png')
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
-    
-
 canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  
+       
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_image=Image.open(bg_image),
@@ -62,3 +60,4 @@ canvas_result = st_canvas(
 )
 
 
+ 
