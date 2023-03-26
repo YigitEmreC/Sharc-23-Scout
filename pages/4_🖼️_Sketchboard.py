@@ -11,6 +11,8 @@ hide_st_style = """
             </style>
             """
 
+with open('./pages/field.png', 'rb') as f:
+    img = Image.open(f)
 
 
 st.set_page_config(
