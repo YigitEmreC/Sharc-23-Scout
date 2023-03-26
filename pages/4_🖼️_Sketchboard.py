@@ -11,8 +11,6 @@ hide_st_style = """
             </style>
             """
 
-with open('./pages/field.png', 'rb') as f:
-    img = Image.open(f)
 
 
 st.set_page_config(
@@ -45,7 +43,9 @@ stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == 'point':
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image = Image.open('./pages/field.png').convert('RGB')
+bg_image = Image.open('https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png').convert('RGB')
+
+
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
     
