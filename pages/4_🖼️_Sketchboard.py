@@ -50,7 +50,6 @@ realtime_update = st.sidebar.checkbox("Update in realtime", True)
     
 
 canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_image=Image.open(bg_image),
