@@ -1,62 +1,64 @@
+import pandas as pd
+from PIL import Image
 import streamlit as st
-from PIL import Image, ImageDraw
-import requests
-from io import BytesIO
+from streamlit_drawable_canvas import st_canvas
 
-# Set up the canvas
-CANVAS_WIDTH = 500
-CANVAS_HEIGHT = 500
-BACKGROUND_COLOR = (255, 255, 255, 255)
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
 
-# Set up the image
-IMAGE_URL = "https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png"
-response = requests.get(IMAGE_URL)
-image = Image.open(BytesIO(response.content))
 
-# Draw on the image
-def draw_on_image(image, drawings):
-    draw = ImageDraw.Draw(image)
-    for drawing in drawings:
-        draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
-# Set up the default drawing settings
-DEFAULT_COLOR = (0, 0, 0)
-DEFAULT_WIDTH = 5
+st.set_page_config(
 
-# Initialize the drawings
-drawings = []
+page_title = "Sketch",
+page_icon ="https://media.licdn.com/dms/image/C4E03AQH4UTTZc2oWaQ/profile-displayphoto-shrink_800_800/0/1570104233605?e=2147483647&v=beta&t=qSvofj0Q9GdBP2StB4aV0EEkqL-iUzZ30TE7G2Lm3DE",
+)
 
-# Set up the sidebar
-st.sidebar.title("Drawing Options")
-color = st.sidebar.color_picker("Color", DEFAULT_COLOR)
-color_hex = rgb_to_hex(color)
-width = st.sidebar.slider("Width", 1, 20, DEFAULT_WIDTH)
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+          footer {visibility: hidden;}
+         header {visibility: hidden;}
+          </style>
+         """
 
-# Set up the canvas
-canvas = st.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)), caption="Draw on the image", width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
+st.markdown(hide_st_style, unsafe_allow_html=True)
 
-# Listen for drawing events
-drawing_mode = st.checkbox("Enable drawing mode", value=False)
-if drawing_mode:
-    st.write("Click and drag to draw")
-    drawing = False
-    with canvas:
-        while drawing_mode:
-            event = st.beta_streamlit_report_thread.get_report_ctx().session_events.get_current().if_type(st.EventData)
-            if event:
-                if event["event"] == "mousedown":
-                    drawing = True
-                    drawings.append({"points": [event["x"], event["y"]], "color": color_hex, "width": width})
-                elif event["event"] == "mousemove":
-                    if drawing:
-                        drawings[-1]["points"].extend([event["x"], event["y"]])
-                        draw_on_image(image, drawings)
-                        canvas.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)).convert("RGBA"), width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
-                elif event["event"] == "mouseup":
-                    drawing = False
+st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png")
 
-# Reset the drawings
-if st.button("Reset drawings"):
-    drawings = []
-    image = Image.open(BytesIO(response.content))
-    canvas.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)).convert("RGBA"), width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
+
+st.markdown(':blue[**Simple Sketch App for Charged UP Field**]')
+
+
+drawing_mode = st.sidebar.selectbox(
+    "Drawing tool:", ("point", "freedraw", "line", "rect", "circle", "transform")
+)
+
+stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
+if drawing_mode == 'point':
+    point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
+stroke_color = st.sidebar.color_picker("Stroke color hex: ")
+bg_image = ('./pages/field.png')
+
+realtime_update = st.sidebar.checkbox("Update in realtime", True)
+
+    
+
+canvas_result = st_canvas(
+    fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
+    stroke_width=stroke_width,
+    stroke_color=stroke_color,
+    background_image=Image.open(bg_image),
+    update_streamlit=realtime_update,
+    height=400,
+    drawing_mode=drawing_mode,
+    point_display_radius=point_display_radius if drawing_mode == 'point' else 0,
+    key="canvas",
+)
+
+
