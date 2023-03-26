@@ -20,7 +20,7 @@ def draw_on_image(image, drawings):
         draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
 DEFAULT_COLOR = "#000000"
-DEFAULT_COLOR_RGBA = "#000000"
+DEFAULT_COLOR_RGBA = 0, 0, 0, 255
 DEFAULT_WIDTH = 5
 
 def rgba_to_hex(rgba):
