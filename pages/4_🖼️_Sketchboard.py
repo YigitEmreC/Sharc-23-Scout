@@ -2,7 +2,6 @@ import streamlit as st
 from PIL import Image, ImageDraw
 import requests
 from io import BytesIO
-import colorama
 
 # Set up the canvas
 CANVAS_WIDTH = 500
@@ -29,9 +28,8 @@ drawings = []
 
 # Set up the sidebar
 st.sidebar.title("Drawing Options")
-colorama.init()
-color = st.sidebar.color_picker("Color", colorama.Fore.BLACK)
-colorama.deinit()
+color = st.sidebar.color_picker("Color", DEFAULT_COLOR)
+color_hex = rgb_to_hex(color)
 width = st.sidebar.slider("Width", 1, 20, DEFAULT_WIDTH)
 
 # Set up the canvas
@@ -48,7 +46,7 @@ if drawing_mode:
             if event:
                 if event["event"] == "mousedown":
                     drawing = True
-                    drawings.append({"points": [event["x"], event["y"]], "color": color, "width": width})
+                    drawings.append({"points": [event["x"], event["y"]], "color": color_hex, "width": width})
                 elif event["event"] == "mousemove":
                     if drawing:
                         drawings[-1]["points"].extend([event["x"], event["y"]])
