@@ -2,6 +2,16 @@ import pandas as pd
 from PIL import Image
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
+import urllib.request
+from PIL import Image
+
+bg_image_url = 'https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png'
+with urllib.request.urlopen(bg_image_url) as url:
+    with open('temp.jpg', 'wb') as f:
+        f.write(url.read())
+
+bg_image = Image.open('temp.jpg')
+
 
 hide_st_style = """
             <style>
@@ -29,8 +39,7 @@ drawing_mode = st.sidebar.selectbox(
 stroke_width = st.sidebar.slider("Stroke width: ", 1, 25, 3)
 if drawing_mode == "point":
     point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
-stroke_color = st.sidebar.color_picker("Stroke color hex: ")
-bg_image_url = "https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png"
+
 
 realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
