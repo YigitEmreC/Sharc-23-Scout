@@ -1,38 +1,61 @@
 import streamlit as st
-import numpy as np
-from PIL import Image
-import io
+from PIL import Image, ImageDraw
 import requests
+from io import BytesIO
 
-# Define function to convert image to RGBA format
-def image_to_rgba(image):
-    if image.mode == 'RGB':
-        r, g, b = image.split()
-        a = Image.new('L', image.size, 255)
-        image = Image.merge('RGBA', (r, g, b, a))
-    return image
+# Set up the canvas
+CANVAS_WIDTH = 500
+CANVAS_HEIGHT = 500
+BACKGROUND_COLOR = (255, 255, 255, 255)
 
-# Load image from URL
-url = 'https://cdn.discordapp.com/attachments/738557702330122283/1078717809225379860/Screenshot_7.png'
-response = requests.get(url)
-image = Image.open(io.BytesIO(response.content))
-image = image_to_rgba(image)
+# Set up the image
+IMAGE_URL = "https://media.discordapp.net/attachments/1078818849182457906/1080141834833113189/QyLctghW_400x400-removebg-preview.png"
+response = requests.get(IMAGE_URL)
+image = Image.open(BytesIO(response.content))
 
-# Create a canvas to draw on
-canvas_size = st.sidebar.slider('Canvas size', 200, 800, 400)
-canvas = st_canvas(
-    fill_color='rgba(255, 255, 255, 0.3)',  # Set background color to transparent
-    stroke_width=5,
-    stroke_color='red',
-    background_image=image,
-    width=canvas_size,
-    height=canvas_size,
-    drawing_mode='freedraw',
-    key='canvas')
+# Draw on the image
+def draw_on_image(image, drawings):
+    draw = ImageDraw.Draw(image)
+    for drawing in drawings:
+        draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
-# Convert the canvas to an image
-if canvas.image_data is not None:
-    img = Image.fromarray(canvas.image_data.astype('uint8'), 'RGBA')
-    img.save('drawing.png')
-    st.image(img, caption='Your drawing', use_column_width=True)
+# Set up the default drawing settings
+DEFAULT_COLOR = (0, 0, 0, 255)
+DEFAULT_WIDTH = 5
 
+# Initialize the drawings
+drawings = []
+
+# Set up the sidebar
+st.sidebar.title("Drawing Options")
+color = st.sidebar.color_picker("Color", DEFAULT_COLOR)
+width = st.sidebar.slider("Width", 1, 20, DEFAULT_WIDTH)
+
+# Set up the canvas
+canvas = st.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)), caption="Draw on the image", width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
+
+# Listen for drawing events
+drawing_mode = st.checkbox("Enable drawing mode", value=False)
+if drawing_mode:
+    st.write("Click and drag to draw")
+    drawing = False
+    with canvas:
+        while drawing_mode:
+            event = st.beta_streamlit_report_thread.get_report_ctx().session_events.get_current().if_type(st.EventData)
+            if event:
+                if event["event"] == "mousedown":
+                    drawing = True
+                    drawings.append({"points": [event["x"], event["y"]], "color": color, "width": width})
+                elif event["event"] == "mousemove":
+                    if drawing:
+                        drawings[-1]["points"].extend([event["x"], event["y"]])
+                        draw_on_image(image, drawings)
+                        canvas.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)).convert("RGBA"), width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
+                elif event["event"] == "mouseup":
+                    drawing = False
+
+# Reset the drawings
+if st.button("Reset drawings"):
+    drawings = []
+    image = Image.open(BytesIO(response.content))
+    canvas.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)).convert("RGBA"), width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
