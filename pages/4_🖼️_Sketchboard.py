@@ -19,17 +19,20 @@ def draw_on_image(image, drawings):
     for drawing in drawings:
         draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
-# Set up the default drawing settings
-DEFAULT_COLOR = 11111
+DEFAULT_COLOR = "#000000"
+DEFAULT_COLOR_RGBA = (0, 0, 0, 255)
 DEFAULT_WIDTH = 5
 
-# Initialize the drawings
-drawings = []
+def rgba_to_hex(rgba):
+    r, g, b, a = rgba
+    return "#{:02x}{:02x}{:02x}".format(r, g, b)
 
 # Set up the sidebar
 st.sidebar.title("Drawing Options")
-color = st.sidebar.color_picker("Color", DEFAULT_COLOR)
+color_rgba = st.sidebar.color_picker("Color", DEFAULT_COLOR_RGBA)
+color = rgba_to_hex(color_rgba)
 width = st.sidebar.slider("Width", 1, 20, DEFAULT_WIDTH)
+
 
 # Set up the canvas
 canvas = st.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)), caption="Draw on the image", width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
