@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image, ImageDraw
 import requests
 from io import BytesIO
+import colorama
 
 # Set up the canvas
 CANVAS_WIDTH = 500
@@ -19,20 +20,19 @@ def draw_on_image(image, drawings):
     for drawing in drawings:
         draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
-DEFAULT_COLOR = "#000000"
-DEFAULT_COLOR_RGBA = 0, 0, 0, 255
+# Set up the default drawing settings
+DEFAULT_COLOR = (0, 0, 0)
 DEFAULT_WIDTH = 5
 
-def rgba_to_hex(rgba):
-    r, g, b, a = rgba
-    return "#{:02x}{:02x}{:02x}".format(r, g, b)
+# Initialize the drawings
+drawings = []
 
 # Set up the sidebar
 st.sidebar.title("Drawing Options")
-color_rgba = st.sidebar.color_picker("Color", DEFAULT_COLOR_RGBA)
-color = rgba_to_hex(color_rgba)
+colorama.init()
+color = st.sidebar.color_picker("Color", colorama.Fore.BLACK)
+colorama.deinit()
 width = st.sidebar.slider("Width", 1, 20, DEFAULT_WIDTH)
-
 
 # Set up the canvas
 canvas = st.image(image.resize((CANVAS_WIDTH, CANVAS_HEIGHT)), caption="Draw on the image", width=CANVAS_WIDTH, height=CANVAS_HEIGHT, use_column_width=False, format="PNG")
