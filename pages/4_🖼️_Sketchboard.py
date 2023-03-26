@@ -20,7 +20,7 @@ def draw_on_image(image, drawings):
         draw.line(drawing["points"], fill=drawing["color"], width=drawing["width"])
 
 # Set up the default drawing settings
-DEFAULT_COLOR = 00FFAA
+DEFAULT_COLOR = 11111
 DEFAULT_WIDTH = 5
 
 # Initialize the drawings
