@@ -79,8 +79,8 @@ else:
  if selected_data:
     chart_data = data[data[sort_variable].isin(selected_data)]
     chart = alt.Chart(chart_data).mark_bar().encode(
-        alt.X(sort_variable2),
-        alt.Y(sort_variable)
+        alt.X(sort_variable),
+        alt.Y(sort_variable2)
     ).interactive()
     st.altair_chart(chart, use_container_width=True)
 
