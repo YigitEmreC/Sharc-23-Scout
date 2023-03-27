@@ -58,6 +58,8 @@ else:
     # A selectbox for selecting which variable you want to create a graph about.
     sort_variable = st.sidebar.selectbox("Sort By", data.columns)
 
+    sort_variable2 = "Team Tag"
+
     # Checkbox for descending or ascending order
     sort_order = st.sidebar.checkbox("Low to High", value=True)
 
@@ -77,8 +79,8 @@ else:
  if selected_data:
     chart_data = data[data[sort_variable].isin(selected_data)]
     chart = alt.Chart(chart_data).mark_bar().encode(
-        alt.X(sort_variable),
-        alt.Y('count()')
+        alt.X(sort_variable2),
+        alt.Y(sort_variable)
     ).interactive()
     st.altair_chart(chart, use_container_width=True)
 
