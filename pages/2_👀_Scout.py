@@ -195,14 +195,15 @@ with st.expander("Finale"):
         def main():
             time_in_minutes = 1
             time_in_seconds = time_in_minutes*60
+            if st.button('Stop'):
+                st.stop()
             if st.button("START"):
                 count_down(time_in_seconds)
 
         if __name__ =='__main__':
             main()
             
-            if st.button('Stop'):
-                st.stop()
+           
 
     parkState = st.radio(
         "Parking State:",
