@@ -5,6 +5,8 @@ from PIL import Image
 import time
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import urllib.request
+
 
 
 # value = streamlit_image_coordinates("https://placekitten.com/200/300")
@@ -287,11 +289,12 @@ with st.expander("Results"):
 
 if st.button('Submit'):
         
-        row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, robotsParked, skillLevel, linkScored, skillDefenseLevel, 
-               swerve, speed, slippy, drop, comment]
-        scout.append_row(row)
-
-        st.success('The data is successfully sent to the sheet ', icon="✅")
-        st.balloons()
+    if check_internet():
+            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, robotsParked, skillLevel, linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+            scout.append_row(row)
+            st.success('The data is successfully sent to the sheet ', icon="✅")
+            st.balloons()
+    else:
+            st.error('Device is not connected to net, try again', icon="🚨")
 
 
