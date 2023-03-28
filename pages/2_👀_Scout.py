@@ -306,5 +306,6 @@ if st.button('Submit'):
             st.balloons()
     else:
             st.error('Device is not connected to net, try again', icon="🚨")
+            st.stop()
 
 
