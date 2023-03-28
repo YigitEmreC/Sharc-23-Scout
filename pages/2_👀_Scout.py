@@ -9,6 +9,16 @@ import urllib.request
 
 
 
+
+
+# Function to check internet connectivity
+def check_internet():
+    try:
+        urllib.request.urlopen('http://google.com')
+        return True
+    except:
+        return False
+
 # value = streamlit_image_coordinates("https://placekitten.com/200/300")
 #st.write(value)
 parkPoints = 0
