@@ -200,6 +200,9 @@ with st.expander("Finale"):
 
         if __name__ =='__main__':
             main()
+            
+            if st.button('Stop'):
+                st.stop()
 
     parkState = st.radio(
         "Parking State:",
