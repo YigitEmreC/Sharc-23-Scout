@@ -302,7 +302,7 @@ with st.expander("Results"):
 if st.button('Submit'):
         
     if check_internet():
-            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, robotsParked, skillLevel, linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
             scout.append_row(row)
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
