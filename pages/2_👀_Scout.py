@@ -68,7 +68,7 @@ with st.expander("Pre-Match Menu"):
 
     level = st.radio(
     "Match Level",
-    ('Practice Match', 'Quals', 'Eighth-Final', 'Quarter-Final', 'Semi-Final', 'Final'))
+    ( 'Quals', 'Practice Match', 'Eighth-Final', 'Quarter-Final', 'Semi-Final', 'Final'))
 
     match = st.text_input('Match')
 
