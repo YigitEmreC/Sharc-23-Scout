@@ -160,9 +160,11 @@ with st.expander("Manual"):
 
     with mcol1:
 
-     cargoManual = st.multiselect(
+    leftNumbers = [x for x in inputNumber if x not in cargoAuto] 
+    
+    cargoManual = st.multiselect(
     'Manual Cargo Placement',
-    numberInput)
+    leftNumbers)
    
     with mcol2:
         
