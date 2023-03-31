@@ -18,6 +18,10 @@ def check_internet():
         return True
     except:
         return False
+    
+    
+    
+                
 
 # value = streamlit_image_coordinates("https://placekitten.com/200/300")
 #st.write(value)
@@ -37,9 +41,23 @@ scope = [
 
 creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 client = gspread.authorize(creds)
-
 scout = client.open('scouting').sheet1
 
+
+def writeSheet429(data):
+    # Retry loop
+    while True:
+        try:
+            # Write the collected data aray to Google Sheets within the order
+            scout.append_row(data)
+            break # Exit the  loop if the process is successful
+        except gspread.exceptions.APIError as e:
+            if e.response.status_code == 429:
+                # If there is a  a 429 error, the program will wait for a certain amount of time before retrying
+                time.sleep(60) #  Puts the app to sleep for 60 seconds since the quota resets per min
+            else:
+                # If it's not a 429 error, raise the exception
+                raise e
 
 
 numberInput = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38']
@@ -290,8 +308,10 @@ with st.expander("Results"):
     autoTotalPointResult = aparkPoints + autoPointCalculator(intAutoCargo)
 
     st.text(f"Total points made during the autonomous state: {autoTotalPointResult}")
+    
+    linkPoint = linkScored * 5
      
-    manualTotalPointResult = parkPoints + manualPointCalculator(manualAutoCargo)
+    manualTotalPointResult = parkPoints + manualPointCalculator(manualAutoCargo) + linkPoint
 
     st.text(f"Total points made during the teleop state: {manualTotalPointResult}")
 
@@ -302,8 +322,9 @@ with st.expander("Results"):
 if st.button('Submit'):
         
     if check_internet():
-            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
-            scout.append_row(row)
+            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
+                   Scored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+            writeSheet429(data)
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
     else:
