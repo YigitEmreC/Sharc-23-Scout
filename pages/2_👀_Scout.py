@@ -324,7 +324,7 @@ async def main():
     
 asyncio.run(main())
 
-def writeSheet429(row):
+async def writeSheet429(row):
     while True:
         try:
             await sheet.append_row(row)
