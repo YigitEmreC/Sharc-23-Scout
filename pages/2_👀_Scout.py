@@ -39,16 +39,16 @@ scope = [
 
 creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
-async def main():
+async def write_Sheet_429():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
 
-    async def write_sheet_429(data):
+    async def writesheet429(row):
         while True:
             try:
-                await sheet.append_row(data)
+                await sheet.append_row(row)
                 break  # Exit the loop if the process is successful
             except gspread.exceptions.APIError as e:
                 if e.response.status_code == 429:
