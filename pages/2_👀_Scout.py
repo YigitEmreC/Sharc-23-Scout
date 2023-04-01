@@ -321,8 +321,10 @@ async def main():
     agc = await agcm.authorize()
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
+    
+asyncio.run(main())
 
-async def writeSheet429(row):
+def writeSheet429(row):
     while True:
         try:
             await sheet.append_row(row)
@@ -336,14 +338,12 @@ async def writeSheet429(row):
                 raise e
 
  
-asyncio.run(main())
 
 if st.button('Submit'):
     
     # checks the internet connection when the submit button is activated
         
-    if check_internet():
-       
+    if check_internet()
             writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
