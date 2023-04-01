@@ -37,7 +37,7 @@ scope = [
     'https://www.googleapis.com/auth/drive'
 ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
+creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
 async def main():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
