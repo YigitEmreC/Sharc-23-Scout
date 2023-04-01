@@ -302,13 +302,7 @@ with st.expander("Results"):
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
-    
-    row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
-                   linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
 
-
-    
-    
 scope = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
@@ -319,6 +313,7 @@ creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scouti
 async def main():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
+    global sheet
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
     
@@ -337,14 +332,12 @@ async def writeSheet429(row):
                 # If it's not a 429 error, raise the exception
                 raise e
 
- 
-
 if st.button('Submit'):
     
     # checks the internet connection when the submit button is activated
         
     if check_internet():
-            writeSheet429(row) # error 429 checker
+            await writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
     else:
