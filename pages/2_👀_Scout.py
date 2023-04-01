@@ -44,7 +44,7 @@ async def main():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
     spreadsheet = await agc.open('scouting')
-    sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
+    sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
 
 async def writeSheet429(row):
     while True:
@@ -54,7 +54,7 @@ async def writeSheet429(row):
         except gspread.exceptions.APIError as e:
             if e.response.status_code == 429:
                     # If there is a 429 error, wait for a certain amount of time before retrying
-                await asyncio.sleep(60)  # Put the app to sleep for 60 seconds since the quota resets per minute
+                await asyncio.sleep(5)  # Put the app to sleep for 60 seconds since the quota resets per minute
             else:
                     # If it's not a 429 error, raise the exception
                 raise e
