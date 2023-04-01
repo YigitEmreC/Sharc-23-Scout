@@ -320,7 +320,7 @@ async def main():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
     spreadsheet = await agc.open('scouting')
-    sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
+    sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
     
 asyncio.run(main())
 
