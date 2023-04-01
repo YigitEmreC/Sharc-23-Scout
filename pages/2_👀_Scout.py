@@ -326,7 +326,7 @@ sync def writeSheet429(row):
    while True:
        try:
                await sheet.append_row(row)
-           break  # Exit the loop if the process is successful
+        break  # Exit the loop if the process is successful
         except gspread.exceptions.APIError as e:
            if e.response.status_code == 429:
                     # If there is a 429 error, wait for a certain amount of time before retrying
