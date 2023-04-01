@@ -303,6 +303,11 @@ with st.expander("Results"):
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import gspread_asyncio
+import asyncio
+
 scope = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
@@ -315,10 +320,8 @@ async def main():
     agc = await agcm.authorize()
     global sheet
     spreadsheet = await agc.open('scouting')
-    sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
+    sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
     
-asyncio.run(main())
-
 async def writeSheet429(row):
     while True:
         try:
@@ -332,10 +335,7 @@ async def writeSheet429(row):
                 # If it's not a 429 error, raise the exception
                 raise e
 
-if st.button('Submit'):
-    
-    # checks the internet connection when the submit button is activated
-        
+async def submit_data():
     if check_internet():
             await writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
@@ -344,3 +344,6 @@ if st.button('Submit'):
             st.error('Device is not connected to net, try again', icon="🚨")
             st.stop()
 
+if st.button('Submit'):
+    asyncio.run(main())
+    asyncio.run(submit_data())
