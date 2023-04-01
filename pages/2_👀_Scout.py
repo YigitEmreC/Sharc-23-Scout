@@ -303,11 +303,6 @@ with st.expander("Results"):
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import gspread_asyncio
-import asyncio
-
 scope = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
@@ -321,7 +316,7 @@ async def main():
     global sheet
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
-    
+
 async def writeSheet429(row):
     while True:
         try:
@@ -347,5 +342,7 @@ async def submit_data():
 if st.button('Submit'):
     row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
                    linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
-    asyncio.run(main())
-    asyncio.run(submit_data())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.run_until_complete(submit_data())
+    loop.close()
