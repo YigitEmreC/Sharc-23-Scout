@@ -39,7 +39,7 @@ scope = [
 
 creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
-async def write_Sheet_429():
+async def main():
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
     spreadsheet = await agc.open('scouting')
