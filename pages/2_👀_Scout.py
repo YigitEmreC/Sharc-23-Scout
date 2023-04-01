@@ -4,6 +4,7 @@ from streamlit_image_coordinates import streamlit_image_coordinates
 from PIL import Image
 import time
 import gspread_asyncio
+import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import asyncio
 import urllib.request
