@@ -45,7 +45,7 @@ async def main():
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
 
-async def writeSheet429(row):
+    async def writeSheet429(row):
         while True:
             try:
                 await sheet.append_row(row)
