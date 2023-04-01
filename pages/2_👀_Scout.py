@@ -8,6 +8,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import asyncio
 import urllib.request
+import threading
 
 
 
@@ -303,8 +304,6 @@ with st.expander("Results"):
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
     
-loop = asyncio.get_event_loop()
-
 scope = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive'
@@ -312,12 +311,13 @@ scope = [
 
 creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
 
-async def main():
+async def main(loop):
     agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
     agc = await agcm.authorize()
     global sheet
     spreadsheet = await agc.open('scouting')
     sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
+    loop.stop()
 
 async def writeSheet429(row):
     while True:
@@ -332,17 +332,29 @@ async def writeSheet429(row):
                 # If it's not a 429 error, raise the exception
                 raise e
 
-async def submit_data():
+async def submit_data(loop):
     if check_internet():
-            await writeSheet429(row) # error 429 checker
-            st.success('The data is successfully sent to the sheet ', icon="✅")
-            st.balloons()
+        await writeSheet429(row) # error 429 checker
+        st.success('The data is successfully sent to the sheet ', icon="✅")
+        st.balloons()
     else:
-            st.error('Device is not connected to net, try again', icon="🚨")
-            st.stop()
+        st.error('Device is not connected to net, try again', icon="🚨")
+        st.stop()
+    loop.stop()
+
+def run_asyncio(loop, coro):
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(coro)
 
 if st.button('Submit'):
     row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
                    linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
-    loop.run_until_complete(main())
-    loop.run_until_complete(submit_data())
+    loop = asyncio.new_event_loop()
+    t = threading.Thread(target=run_asyncio, args=(loop, main(loop)))
+    t.start()
+    loop.run_forever()
+    
+    loop = asyncio.new_event_loop()
+    t = threading.Thread(target=run_asyncio, args=(loop, submit_data(loop)))
+    t.start()
+    loop.run_forever()
