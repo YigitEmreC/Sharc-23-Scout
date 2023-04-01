@@ -343,7 +343,7 @@ if st.button('Submit'):
     
     # checks the internet connection when the submit button is activated
         
-    if check_internet()
+    if check_internet():
             writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
