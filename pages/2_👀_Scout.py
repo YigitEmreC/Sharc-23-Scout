@@ -3,8 +3,9 @@ from streamlit_extras.no_default_selectbox import selectbox
 from streamlit_image_coordinates import streamlit_image_coordinates
 from PIL import Image
 import time
-import gspread
+import gspread_asyncio
 from oauth2client.service_account import ServiceAccountCredentials
+import asyncio
 import urllib.request
 
 
@@ -31,36 +32,34 @@ st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1
 
 
 
-
-# google sheet directions are defined
-
 scope = [
-'https://www.googleapis.com/auth/spreadsheets',
-'https://www.googleapis.com/auth/drive'
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive'
 ]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
-client = gspread.authorize(creds)
-scout = client.open('scouting').sheet1
 
-# make sure that the data input doesn't exceed the quote cap for google sheet api, if the quota is exceeded error code 429 will occur.
-def writeSheet429(data):
-    # Retry loop
-    while True:
-        try:
-            # Write the collected data aray to Google Sheets within the order
-            scout.append_row(data)
-            break # Exit the  loop if the process is successful
-        except gspread.exceptions.APIError as e:
-            if e.response.status_code == 429:
-                # If there is a  a 429 error, the program will wait for a certain amount of time before retrying
-                time.sleep(60) #  Puts the app to sleep for 60 seconds since the quota resets per min
-                st.error('Too many requests, try again a minute later', icon="🚨")
+async def main():
+    agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
+    agc = await agcm.authorize()
+    spreadsheet = await agc.open('scouting')
+    sheet = await spreadsheet.get_worksheet(0)  # assume the sheet is the first one
 
-            else:
-                # If it's not a 429 error, raise the exception
-                raise e
+    async def write_sheet_429(data):
+        while True:
+            try:
+                await sheet.append_row(data)
+                break  # Exit the loop if the process is successful
+            except gspread.exceptions.APIError as e:
+                if e.response.status_code == 429:
+                    # If there is a 429 error, wait for a certain amount of time before retrying
+                    await asyncio.sleep(60)  # Put the app to sleep for 60 seconds since the quota resets per minute
+                else:
+                    # If it's not a 429 error, raise the exception
+                    raise e
 
+ 
+asyncio.run(main())
 # possible cargo locations.
 numberInput = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38']
 
