@@ -345,5 +345,7 @@ async def submit_data():
             st.stop()
 
 if st.button('Submit'):
+    row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
+                   linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
     asyncio.run(main())
     asyncio.run(submit_data())
