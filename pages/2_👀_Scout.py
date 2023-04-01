@@ -302,6 +302,8 @@ with st.expander("Results"):
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
+    
+loop = asyncio.get_event_loop()
 
 scope = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -342,7 +344,5 @@ async def submit_data():
 if st.button('Submit'):
     row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
                    linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
-    loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
     loop.run_until_complete(submit_data())
-    loop.close()
