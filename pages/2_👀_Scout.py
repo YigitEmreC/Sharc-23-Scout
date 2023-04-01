@@ -32,35 +32,6 @@ st.sidebar.image("https://media.discordapp.net/attachments/1078818849182457906/1
 
 
 
-
-scope = [
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/drive'
-]
-
-creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
-
-async def main():
-    agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
-    agc = await agcm.authorize()
-    spreadsheet = await agc.open('scouting')
-    sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
-
-sync def writeSheet429(row):
-   while True:
-       try:
-            await sheet.append_row(row)
-           break  # Exit the loop if the process is successful
-       except gspread.exceptions.APIError as e:
-           if e.response.status_code == 429:
-                    # If there is a 429 error, wait for a certain amount of time before retrying
-               await asyncio.sleep(5)  # Put the app to sleep for 60 seconds since the quota resets per minute
-           else:
-                    # If it's not a 429 error, raise the exception
-               raise e
-
- 
-asyncio.run(main())
 # possible cargo locations.
 numberInput = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38']
 
@@ -331,14 +302,48 @@ with st.expander("Results"):
     totalPointOverall = autoTotalPointResult + manualTotalPointResult
             
     st.subheader(f"Total points made in both autonomous and manual: {totalPointOverall}")
+    
+    row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
+                   linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+
+
+    
+    
+scope = [
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive'
+]
+
+creds = lambda: ServiceAccountCredentials.from_json_keyfile_name('./pages/scoutingapi23.json', scope)
+
+async def main():
+    agcm = gspread_asyncio.AsyncioGspreadClientManager(creds)
+    agc = await agcm.authorize()
+    spreadsheet = await agc.open('scouting')
+    sheet = await spreadsheet.get_worksheet(1)  # assume the sheet is the first one
+
+sync def writeSheet429(row):
+   while True:
+       try:
+            await sheet.append_row(row)
+           break  # Exit the loop if the process is successful
+       except gspread.exceptions.APIError as e:
+           if e.response.status_code == 429:
+                    # If there is a 429 error, wait for a certain amount of time before retrying
+               await asyncio.sleep(5)  # Put the app to sleep for 60 seconds since the quota resets per minute
+           else:
+                    # If it's not a 429 error, raise the exception
+               raise e
+
+ 
+asyncio.run(main())
 
 if st.button('Submit'):
     
     # checks the internet connection when the submit button is activated
         
     if check_internet():
-            row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
-                   linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+       
             writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
