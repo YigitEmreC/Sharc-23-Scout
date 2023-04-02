@@ -339,6 +339,7 @@ if st.button('Submit'):
     if check_internet():
             row = [name, level, match, team, robot, teamTag, teamName, autoTotalPointResult, manualTotalPointResult, totalPointOverall,''.join(spawnPoint), '-'.join(cargoAuto), cable, chargeStation, mobility, docked, '-'.join(cargoManual), feeder, defended, fed, pickUp, dockingTime, parkState, skillLevel, 
                    linkScored, skillDefenseLevel, swerve, speed, slippy, drop, comment]
+            time.sleep(60 + autoTotalPointResult)
             writeSheet429(row) # error 429 checker
             st.success('The data is successfully sent to the sheet ', icon="✅")
             st.balloons()
